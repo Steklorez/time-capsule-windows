@@ -1,0 +1,38 @@
+name: Problem / Проблема
+description: Something does not work. Можно писать по-русски.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened / Что случилось
+      description: What you did, what you expected, what you got. / Что делали, чего ждали, что получилось.
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device / Устройство
+      placeholder: Time Capsule 4th generation (A1409)
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version / Версия Windows
+      placeholder: Windows 11 24H2
+  - type: input
+    id: version
+    attributes:
+      label: Time Capsule Drive version / Версия программы
+      placeholder: 1.3.0
+  - type: textarea
+    id: log
+    attributes:
+      label: Log / Журнал
+      description: >
+        Attach or paste C:\ProgramData\TimeCapsuleDrive\timecapsule.log. It may contain the device address and file
+        names; remove anything you do not want to publish. /
+        Приложите файл C:\ProgramData\TimeCapsuleDrive\timecapsule.log. В нём могут быть адрес устройства и имена
+        файлов; уберите то, что не хотите публиковать.
+      render: text

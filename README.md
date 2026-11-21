@@ -2,45 +2,36 @@
 
 **English** | [Русский](README.ru.md)
 
-Use an Apple Time Capsule (or an AirPort disk) on Windows 10/11 as an ordinary drive letter, over Apple's own
-file protocol, AFP. No SMB1 needed.
+**Use an Apple Time Capsule on Windows 10/11 as a normal drive. No SMB1, and nothing to change on the Time Capsule.**
 
-Windows can only reach a Time Capsule through SMB1, an old protocol that Windows 11 ships switched off and that
-is slow on this hardware. This program talks to the Time Capsule the way a Mac does and shows it as a normal disk.
+[![Latest release](https://img.shields.io/github/v/release/Steklorez/time-capsule-windows)](https://github.com/Steklorez/time-capsule-windows/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/Steklorez/time-capsule-windows/total)](https://github.com/Steklorez/time-capsule-windows/releases)
+[![Licence](https://img.shields.io/github/license/Steklorez/time-capsule-windows)](LICENSE)
 
-> Status: early release. It has been developed and tested against a single device, a Time Capsule 4th generation
-> (2011). Other models may behave differently; reports are welcome. Keep a second copy of anything important.
+![Run the installer, and the Time Capsule shows up in This PC as a normal drive](docs/hero-en.png)
 
-## Download
+### [⬇ Download TimeCapsuleDriveSetup.exe](https://github.com/Steklorez/time-capsule-windows/releases/latest/download/TimeCapsuleDriveSetup.exe)
 
-**[Download TimeCapsuleDriveSetup.exe](https://github.com/Steklorez/time-capsule-windows/releases/latest/download/TimeCapsuleDriveSetup.exe)** (latest version; all versions are on the [Releases](https://github.com/Steklorez/time-capsule-windows/releases) page).
+Free and open source. Windows 10/11 x64. One file, nothing else to install.
 
-## Install
+## The problem it solves
 
-Run `TimeCapsuleDriveSetup.exe` and confirm the administrator prompt. In the window:
+Windows can only open a Time Capsule through SMB1, an old protocol that Windows 11 ships switched off. That is
+why you see *"You can't connect to the file share because it's not secure. This share requires the obsolete
+SMB1 protocol"* or *"Windows cannot access \\\\…"* (error 0x80070035).
 
-1. **Device on the network** is found automatically; if the list stays empty, type the IP address.
-2. **User name and password** as set on the Time Capsule (leave the user name empty for a disk password, both
-   empty for guest access).
-3. Pick a **drive letter** and, if you want, tick **Share this drive with other computers**.
-4. Press **Install**.
+Time Capsule Drive talks to the Time Capsule the way a Mac does, over Apple's own protocol (AFP), and shows it
+as a drive letter.
 
-The drive appears at once and comes back by itself every time Windows starts, for all users. Running the setup
-program again changes the settings or uninstalls; uninstalling also works from Windows "Apps".
+- **No SMB1.** Leave it switched off.
+- **Faster.** Large files read 1.8–2.2× faster than over SMB1 (measurements below).
+- **The Time Capsule is not touched.** No firmware changes, nothing installed on it. Macs keep using it as before.
+- **Set up once.** The drive comes back by itself every time Windows starts, and reconnects after a network drop.
+- **Can serve the whole house.** One PC can share the drive, so other computers need nothing installed.
 
-If the drive is gone, open the setup window again: the line at the top says whether it is connected and, if not,
-why (the device does not answer, the password is refused). If the Time Capsule gets a new IP address, the program
-finds it on the network by name and remembers the new address.
-
-Requirements: Windows 10/11 x64. Nothing else to install and no internet needed: .NET and the official WinFsp
-installer are inside the file. The file is not code-signed, so Windows SmartScreen will warn about it
-("More info" → "Run anyway").
-
-### Two ways to use it on a network
-
-- **On every computer:** install without sharing. Each computer talks to the Time Capsule directly; fastest.
-- **One bridge computer:** install with sharing on one PC; the others open `\\bridge\TimeCapsule` as a normal
-  network folder and install nothing.
+> **Early release.** Tested on one device, a Time Capsule 4th generation (2011). Keep a second copy of anything
+> important, and please [report](https://github.com/Steklorez/time-capsule-windows/issues/new/choose) how it
+> works on your model.
 
 ## Speed
 
@@ -48,6 +39,12 @@ installer are inside the file. The file is not code-signed, so Windows SmartScre
   <source media="(prefers-color-scheme: dark)" srcset="docs/speed-en-dark.svg">
   <img alt="Speed comparison: AFP drive vs Windows built-in SMB1" src="docs/speed-en-light.svg">
 </picture>
+
+Reading and deleting are much faster, writing a large file is somewhat faster, and creating many small files is
+currently slower than SMB1.
+
+<details>
+<summary>All numbers and how they were measured</summary>
 
 Over Wi-Fi:
 
@@ -69,9 +66,6 @@ Over a network cable:
 | Small files, read | 39 per second | 117 per second | 3.0× faster |
 | Small files, delete | 17 per second | 95 per second | 5.6× faster |
 
-Reading and deleting are much faster; writing a large file is somewhat faster; creating many small files is
-currently slower than SMB1.
-
 How it was measured: one Windows 11 laptop, Time Capsule 4th generation, a 400 MB file and 200 files of 10 KB,
 Windows' own cache bypassed, averages of three runs of each test (`tools/speed-compare.ps1`); for the cable run
 the laptop was on battery. One computer and one device: a guide, not a guarantee. Run the script yourself to see
@@ -82,18 +76,75 @@ up to 90 MB/s (a file that has been on the disk for a while), which is the limit
 
 The charts are drawn by `docs/make-speed-chart.py`.
 
-## What the installer puts on the computer
+</details>
 
-| What | Where |
+## Install
+
+<img align="right" width="330" alt="The setup window" src="docs/setup-en.png">
+
+Run `TimeCapsuleDriveSetup.exe` and confirm the administrator prompt.
+
+1. **Device on the network** is found automatically. If the list stays empty, type the IP address.
+2. **User name and password** as set on the Time Capsule. For a disk password leave the user name empty; for
+   guest access leave both empty.
+3. Pick a **drive letter**.
+4. Press **Install**.
+
+The drive appears at once.
+
+**Windows SmartScreen will warn about the file** because it is not code-signed: choose "More info" → "Run
+anyway". The SHA-256 of each release is on the
+[Releases](https://github.com/Steklorez/time-capsule-windows/releases) page.
+
+**To change settings or uninstall**, run the setup program again, or use Windows "Apps".
+
+**If the drive is gone**, open the setup window: the line at the top says whether it is connected and, if not,
+why. If the Time Capsule gets a new IP address, the program finds it by name on its own.
+
+<br clear="right">
+
+### One computer or the whole network
+
+- **On every computer:** install on each PC. Each one talks to the Time Capsule directly; this is the fastest.
+- **One bridge computer:** on one PC tick **Share this drive with other computers**. The others open
+  `\\bridge\TimeCapsule` as a normal network folder and install nothing.
+
+## Which way is right for you
+
+| | Switch SMB1 back on | [TimeCapsuleSMB](https://github.com/jamesyc/TimeCapsuleSMB) | Time Capsule Drive |
+|---|---|---|---|
+| What it is | A Windows setting | Modern Samba installed on the Time Capsule | A program on the Windows PC |
+| Changes on the Time Capsule | None | Yes; generations 1–4 also need a firmware patch to start it after a reboot | None |
+| SMB1 on your PC | Required | Not needed | Not needed |
+| Time Machine on macOS 27+ | No | Yes | No |
+| Best for | Not recommended | Mac owners | Windows owners |
+
+If you back up Macs with macOS 27 or later, you need TimeCapsuleSMB. If you only want the disk on Windows and
+would rather leave the device alone, this program is the simpler way.
+
+## Tested devices
+
+| Device | Status |
 |---|---|
-| Program | `C:\Program Files\TimeCapsuleDrive\` (`TimeCapsuleDrive.exe`, `winfsp-msil.dll`) |
-| Settings (password encrypted, administrators only) | `C:\ProgramData\TimeCapsuleDrive\config.txt` |
-| Log (everyone may read, only administrators may change) | `C:\ProgramData\TimeCapsuleDrive\timecapsule.log` |
-| Start with Windows | scheduled task `TimeCapsuleDrive` (runs as SYSTEM at boot) |
-| Sharing (if chosen) | a network share with full access (sign in with an account of that computer) and the firewall rule "TimeCapsuleDrive file sharing (SMB-In)": port 445 for the local subnet on private networks. The rule opens file sharing for the whole computer, not only for this share |
-| Drive component | WinFsp (left in place on uninstall: other programs may use it) |
+| Time Capsule 4th generation (A1409, 2011) | Works; all development and tests were done on it |
+| Time Capsule 5th generation (A1470, 2013) | Not tested yet |
+| Time Capsule 1st–3rd generation | Not tested yet |
+| AirPort Extreme with a USB disk | Not tested yet |
 
-## Data safety
+Tried it on another model?
+[Send a compatibility report](https://github.com/Steklorez/time-capsule-windows/issues/new?template=compatibility.yml);
+it takes a minute and helps everyone with the same device.
+
+## Good to know
+
+- Meant for your home network: AFP does not verify the server, so do not use it on public networks.
+- One installation mounts one disk of one Time Capsule.
+- Do not write inside Time Machine backups.
+- Mac-only metadata (Finder labels, resource forks of old files) is not visible on Windows.
+- The disk of the Time Capsule goes to sleep; the first access after a pause takes about 8 seconds.
+
+<details>
+<summary><b>Data safety: what was tested</b></summary>
 
 Verified on a Time Capsule 4th generation (the `selftest` command and the test scripts):
 
@@ -122,7 +173,10 @@ Implemented from the protocol documentation but not exercised on a live device:
   normally sends a keep-alive every 30 seconds).
 - **Server messages** about shutdown and about changes on the disk (the latter refresh the file list).
 
-Known limitations:
+</details>
+
+<details>
+<summary><b>All known limitations</b></summary>
 
 - After the connection is cut in the middle of a write, the first reconnect can take up to two minutes; the
   drive pauses meanwhile and then continues.
@@ -139,7 +193,26 @@ Known limitations:
 - If the Time Capsule was unreachable when you signed in to Windows and connects later, Explorer may not show
   the drive until Explorer is restarted.
 
-## Command line
+</details>
+
+<details>
+<summary><b>What the installer puts on the computer</b></summary>
+
+Nothing is downloaded: .NET and the official WinFsp installer are inside the file.
+
+| What | Where |
+|---|---|
+| Program | `C:\Program Files\TimeCapsuleDrive\` (`TimeCapsuleDrive.exe`, `winfsp-msil.dll`) |
+| Settings (password encrypted, administrators only) | `C:\ProgramData\TimeCapsuleDrive\config.txt` |
+| Log (everyone may read, only administrators may change) | `C:\ProgramData\TimeCapsuleDrive\timecapsule.log` |
+| Start with Windows | scheduled task `TimeCapsuleDrive` (runs as SYSTEM at boot) |
+| Sharing (if chosen) | a network share with full access (sign in with an account of that computer) and the firewall rule "TimeCapsuleDrive file sharing (SMB-In)": port 445 for the local subnet on private networks. The rule opens file sharing for the whole computer, not only for this share |
+| Drive component | WinFsp (left in place on uninstall: other programs may use it) |
+
+</details>
+
+<details>
+<summary><b>Command line</b></summary>
 
 ```
 TimeCapsuleDrive                      setup window
@@ -152,17 +225,13 @@ TimeCapsuleDrive probe | ls | selftest | bench | benchw | mount     diagnostic t
 The settings file holds `key=value` lines: `host`, `volume`, `login`, `password`, `drive`, `share`.
 During development the program reads `credentials.txt` from the project folder (never committed).
 
-## Building
+</details>
 
-Needs the .NET 10 SDK.
+<details>
+<summary><b>Building and how it works</b></summary>
 
-```
-build.cmd
-```
-
-The result is `dist\TimeCapsuleDriveSetup.exe`: one file that is both the installer and the program.
-
-## How it works
+Needs the .NET 10 SDK. Run `build.cmd`; the result is `dist\TimeCapsuleDriveSetup.exe`, one file that is both
+the installer and the program.
 
 - `src/TimeCapsuleDrive/Afp`: an AFP 3.3 client over TCP written for this project: DHX2 login, files, write
   protection, reconnect, server messages.
@@ -175,11 +244,21 @@ Time Capsule quirks the code works around:
 - growing a file makes the Time Capsule fill it with zeros, so growth is postponed until the file is closed;
 - its disk goes to sleep; the first access after a pause takes about 8 seconds.
 
+</details>
+
+## Questions and problems
+
+- Something does not work: [open an issue](https://github.com/Steklorez/time-capsule-windows/issues/new/choose)
+  and attach `C:\ProgramData\TimeCapsuleDrive\timecapsule.log`.
+- Questions and ideas: [Discussions](https://github.com/Steklorez/time-capsule-windows/discussions).
+
+If the program is useful to you, a ⭐ helps other Time Capsule owners find it.
+
 ## Licence
 
 Time Capsule Drive is free software, released under the [GNU General Public License v3.0](LICENSE).
 
-## Dependencies
+Dependencies:
 
 - [WinFsp](https://winfsp.dev): GPLv3 with an exception for free and open-source software that permits both
   linking and redistributing the unmodified installer. The WinFsp 2.2 installer is included as is

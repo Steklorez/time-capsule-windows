@@ -1,0 +1,44 @@
+name: Compatibility report / Отчёт о совместимости
+description: Tell us how the program works with your device. Можно писать по-русски.
+title: "Compatibility: "
+labels: ["compatibility"]
+body:
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device / Устройство
+      options:
+        - Time Capsule 1st generation (A1254)
+        - Time Capsule 2nd generation (A1302)
+        - Time Capsule 3rd generation (A1355)
+        - Time Capsule 4th generation (A1409)
+        - Time Capsule 5th generation (A1470)
+        - AirPort Extreme with a USB disk
+        - Other / Другое
+    validations:
+      required: true
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result / Результат
+      options:
+        - Works / Работает
+        - Works with problems / Работает с проблемами
+        - Does not work / Не работает
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version / Версия Windows
+      placeholder: Windows 11 24H2
+  - type: input
+    id: version
+    attributes:
+      label: Time Capsule Drive version / Версия программы
+      placeholder: 1.3.0
+  - type: textarea
+    id: notes
+    attributes:
+      label: Details / Подробности
+      description: Wi-Fi or cable, copy speed, anything unusual. / Wi-Fi или кабель, скорость копирования, что показалось странным.

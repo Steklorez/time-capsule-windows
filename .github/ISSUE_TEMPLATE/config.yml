@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Question or idea / Вопрос или идея
+    url: https://github.com/Steklorez/time-capsule-windows/discussions
+    about: Ask in Discussions. / Задайте вопрос в Discussions.
