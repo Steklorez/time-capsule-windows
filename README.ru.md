@@ -12,6 +12,10 @@ Windows умеет работать с Time Capsule только через SMB1
 > (2011). Другие модели могут вести себя иначе; сообщения о результатах приветствуются. Важные данные храните
 > ещё где-нибудь.
 
+## Скачать
+
+**[Скачать TimeCapsuleDriveSetup.exe](https://github.com/Steklorez/time-capsule-windows/releases/latest/download/TimeCapsuleDriveSetup.exe)** (последняя версия; все версии — на странице [Releases](https://github.com/Steklorez/time-capsule-windows/releases)).
+
 ## Установка
 
 Запустите `TimeCapsuleDriveSetup.exe` и подтвердите запрос прав администратора. В окне:

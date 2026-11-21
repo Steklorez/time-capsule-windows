@@ -11,6 +11,10 @@ is slow on this hardware. This program talks to the Time Capsule the way a Mac d
 > Status: early release. It has been developed and tested against a single device, a Time Capsule 4th generation
 > (2011). Other models may behave differently; reports are welcome. Keep a second copy of anything important.
 
+## Download
+
+**[Download TimeCapsuleDriveSetup.exe](https://github.com/Steklorez/time-capsule-windows/releases/latest/download/TimeCapsuleDriveSetup.exe)** (latest version; all versions are on the [Releases](https://github.com/Steklorez/time-capsule-windows/releases) page).
+
 ## Install
 
 Run `TimeCapsuleDriveSetup.exe` and confirm the administrator prompt. In the window:
