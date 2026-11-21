@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="718" viewBox="0 0 820 718" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-label="Apple Time Capsule в Windows 11: диск по AFP и встроенный SMB">
+<rect width="820" height="718" rx="8" fill="#fcfcfb"/>
+<text x="24" y="34" font-size="18" font-weight="600" fill="#0b0b0b">Apple Time Capsule в Windows 11: диск по AFP и встроенный SMB</text>
+<text x="24" y="56" font-size="13" fill="#52514e">Один ноутбук, Time Capsule 4-го поколения. Среднее по трём прогонам; чем длиннее полоса, тем быстрее.</text>
+<rect x="24" y="76" width="12" height="12" rx="2" fill="#2a78d6"/>
+<text x="42" y="87" font-size="13" fill="#0b0b0b">Time Capsule Drive (AFP)</text>
+<rect x="247" y="76" width="12" height="12" rx="2" fill="#eb6834"/>
+<text x="265" y="87" font-size="13" fill="#0b0b0b">Встроенный в Windows SMB1</text>
+<text x="24" y="126" font-size="14" font-weight="600" fill="#0b0b0b">Один большой файл (400 МБ), МБ/с</text>
+<line x1="170" y1="140" x2="170" y2="334" stroke="#c3c2b7" stroke-width="1"/>
+<text x="158" y="165" font-size="13" text-anchor="end" fill="#52514e">Запись, Wi-Fi</text>
+<path d="M170,144 h237.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-237.0 z" fill="#2a78d6"/>
+<text x="419.0" y="156" font-size="12" font-weight="600" fill="#0b0b0b">25,4</text>
+<path d="M170,162 h140.2 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-140.2 z" fill="#eb6834"/>
+<text x="322.2" y="174" font-size="12" fill="#0b0b0b">15,2</text>
+<text x="796" y="165" font-size="13" text-anchor="end" fill="#52514e">в 1,7 раза быстрее</text>
+<text x="158" y="215" font-size="13" text-anchor="end" fill="#52514e">Запись, кабель</text>
+<path d="M170,194 h267.4 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-267.4 z" fill="#2a78d6"/>
+<text x="449.4" y="206" font-size="12" font-weight="600" fill="#0b0b0b">28,6</text>
+<path d="M170,212 h214.2 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-214.2 z" fill="#eb6834"/>
+<text x="396.2" y="224" font-size="12" fill="#0b0b0b">23,0</text>
+<text x="796" y="215" font-size="13" text-anchor="end" fill="#52514e">в 1,2 раза быстрее</text>
+<text x="158" y="265" font-size="13" text-anchor="end" fill="#52514e">Чтение, Wi-Fi</text>
+<path d="M170,244 h266.4 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-266.4 z" fill="#2a78d6"/>
+<text x="448.4" y="256" font-size="12" font-weight="600" fill="#0b0b0b">28,5</text>
+<path d="M170,262 h119.4 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-119.4 z" fill="#eb6834"/>
+<text x="301.4" y="274" font-size="12" fill="#0b0b0b">13,0</text>
+<text x="796" y="265" font-size="13" text-anchor="end" fill="#52514e">в 2,2 раза быстрее</text>
+<text x="158" y="315" font-size="13" text-anchor="end" fill="#52514e">Чтение, кабель</text>
+<path d="M170,294 h386.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-386.0 z" fill="#2a78d6"/>
+<text x="568.0" y="306" font-size="12" font-weight="600" fill="#0b0b0b">41,1</text>
+<path d="M170,312 h212.4 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-212.4 z" fill="#eb6834"/>
+<text x="394.4" y="324" font-size="12" fill="#0b0b0b">22,8</text>
+<text x="796" y="315" font-size="13" text-anchor="end" fill="#52514e">в 1,8 раза быстрее</text>
+<text x="24" y="366" font-size="14" font-weight="600" fill="#0b0b0b">Мелкие файлы (200 × 10 КБ), файлов в секунду</text>
+<line x1="170" y1="380" x2="170" y2="674" stroke="#c3c2b7" stroke-width="1"/>
+<text x="158" y="405" font-size="13" text-anchor="end" fill="#52514e">Создание, Wi-Fi</text>
+<path d="M170,384 h96.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-96.0 z" fill="#2a78d6"/>
+<text x="278.0" y="396" font-size="12" font-weight="600" fill="#0b0b0b">30</text>
+<path d="M170,402 h112.7 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-112.7 z" fill="#eb6834"/>
+<text x="294.7" y="414" font-size="12" fill="#0b0b0b">35</text>
+<text x="796" y="405" font-size="13" text-anchor="end" fill="#52514e">на 14% медленнее</text>
+<text x="158" y="455" font-size="13" text-anchor="end" fill="#52514e">Создание, кабель</text>
+<path d="M170,434 h96.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-96.0 z" fill="#2a78d6"/>
+<text x="278.0" y="446" font-size="12" font-weight="600" fill="#0b0b0b">30</text>
+<path d="M170,452 h152.7 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-152.7 z" fill="#eb6834"/>
+<text x="334.7" y="464" font-size="12" fill="#0b0b0b">47</text>
+<text x="796" y="455" font-size="13" text-anchor="end" fill="#52514e">на 36% медленнее</text>
+<text x="158" y="505" font-size="13" text-anchor="end" fill="#52514e">Чтение, Wi-Fi</text>
+<path d="M170,484 h309.3 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-309.3 z" fill="#2a78d6"/>
+<text x="491.3" y="496" font-size="12" font-weight="600" fill="#0b0b0b">94</text>
+<path d="M170,502 h122.7 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-122.7 z" fill="#eb6834"/>
+<text x="304.7" y="514" font-size="12" fill="#0b0b0b">38</text>
+<text x="796" y="505" font-size="13" text-anchor="end" fill="#52514e">в 2,5 раза быстрее</text>
+<text x="158" y="555" font-size="13" text-anchor="end" fill="#52514e">Чтение, кабель</text>
+<path d="M170,534 h386.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-386.0 z" fill="#2a78d6"/>
+<text x="568.0" y="546" font-size="12" font-weight="600" fill="#0b0b0b">117</text>
+<path d="M170,552 h126.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-126.0 z" fill="#eb6834"/>
+<text x="308.0" y="564" font-size="12" fill="#0b0b0b">39</text>
+<text x="796" y="555" font-size="13" text-anchor="end" fill="#52514e">в 3,0 раза быстрее</text>
+<text x="158" y="605" font-size="13" text-anchor="end" fill="#52514e">Удаление, Wi-Fi</text>
+<path d="M170,584 h286.0 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-286.0 z" fill="#2a78d6"/>
+<text x="468.0" y="596" font-size="12" font-weight="600" fill="#0b0b0b">87</text>
+<path d="M170,602 h39.3 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-39.3 z" fill="#eb6834"/>
+<text x="221.3" y="614" font-size="12" fill="#0b0b0b">13</text>
+<text x="796" y="605" font-size="13" text-anchor="end" fill="#52514e">в 6,7 раза быстрее</text>
+<text x="158" y="655" font-size="13" text-anchor="end" fill="#52514e">Удаление, кабель</text>
+<path d="M170,634 h312.7 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-312.7 z" fill="#2a78d6"/>
+<text x="494.7" y="646" font-size="12" font-weight="600" fill="#0b0b0b">95</text>
+<path d="M170,652 h52.7 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-52.7 z" fill="#eb6834"/>
+<text x="234.7" y="664" font-size="12" fill="#0b0b0b">17</text>
+<text x="796" y="655" font-size="13" text-anchor="end" fill="#52514e">в 5,6 раза быстрее</text>
+<text x="24" y="698" font-size="12" fill="#898781">SMB1 в Windows 11 по умолчанию выключен, его нужно включать вручную; диску по AFP он не нужен.</text>
+</svg>

@@ -1,0 +1,7 @@
+credentials.txt
+*.log
+bin/
+obj/
+dist/
+research/
+third_party/*.msi
