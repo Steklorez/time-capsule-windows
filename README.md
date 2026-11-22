@@ -12,6 +12,21 @@
 
 ### [⬇ Download TimeCapsuleDriveSetup.exe](https://github.com/Steklorez/time-capsule-windows/releases/latest/download/TimeCapsuleDriveSetup.exe)
 
+<div align="center">
+
+![](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=90&section=header)
+
+### ☕ Enjoying Time Capsule Drive? Consider buying the author a cup of coffee!
+
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Donate-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/I3I0273OYI)
+[![Boosty](https://img.shields.io/badge/Boosty-Donate-F15F2C?style=for-the-badge&logo=boosty&logoColor=white)](https://boosty.to/steklorez)
+
+<a href="https://ko-fi.com/I3I0273OYI"><img src=".github/support/qr-kofi.png" width="140" alt="Ko-fi QR"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://boosty.to/steklorez"><img src=".github/support/qr-boosty.png" width="140" alt="Boosty QR"></a>
+
+![](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=60&section=footer)
+
+</div>
+
 Free and open source. Windows 10/11 x64. One file, nothing else to install.
 
 ## The problem it solves
