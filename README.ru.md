@@ -7,6 +7,7 @@
 [![Последняя версия](https://img.shields.io/github/v/release/Steklorez/time-capsule-windows?label=%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F)](https://github.com/Steklorez/time-capsule-windows/releases/latest)
 [![Скачиваний](https://img.shields.io/github/downloads/Steklorez/time-capsule-windows/total?label=%D1%81%D0%BA%D0%B0%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B9)](https://github.com/Steklorez/time-capsule-windows/releases)
 [![Лицензия](https://img.shields.io/github/license/Steklorez/time-capsule-windows?label=%D0%BB%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F)](LICENSE)
+[![VirusTotal: 1 из 69](https://img.shields.io/badge/VirusTotal-1%2F69-green?logo=virustotal&logoColor=white)](https://www.virustotal.com/gui/file/4edb05eac0643ec8322739ee075aa698738f2e57683c8f4c03a19ea893c6218d)
 
 ![Запустите установщик, и Time Capsule появится в «Этом компьютере» как обычный диск](docs/hero-ru.png)
 
@@ -110,6 +111,11 @@ Time Capsule Drive общается с Time Capsule так же, как Mac, п�
 **Windows SmartScreen покажет предупреждение**, потому что файл не подписан: «Подробнее» → «Выполнить в любом
 случае». SHA-256 каждого выпуска указан на странице
 [Releases](https://github.com/Steklorez/time-capsule-windows/releases).
+
+**Проверка антивирусами.** [Отчёт VirusTotal для версии 1.3.0](https://www.virustotal.com/gui/file/4edb05eac0643ec8322739ee075aa698738f2e57683c8f4c03a19ea893c6218d): 68 из 69 антивирусов ничего не находят,
+в том числе Microsoft, Kaspersky, ESET, BitDefender и Dr.Web. Один, Bkav Pro, помечает файл общим ярлыком
+(`W32.Malware.56658B19`) — это частое ложное срабатывание на новые неподписанные установщики. Исходный код
+открыт, файл можно собрать и самому.
 
 **Изменить настройки или удалить программу**: запустите установщик ещё раз или откройте «Приложения» Windows.
 

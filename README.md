@@ -7,6 +7,7 @@
 [![Latest release](https://img.shields.io/github/v/release/Steklorez/time-capsule-windows)](https://github.com/Steklorez/time-capsule-windows/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/Steklorez/time-capsule-windows/total)](https://github.com/Steklorez/time-capsule-windows/releases)
 [![Licence](https://img.shields.io/github/license/Steklorez/time-capsule-windows)](LICENSE)
+[![VirusTotal: 1 of 69](https://img.shields.io/badge/VirusTotal-1%2F69-green?logo=virustotal&logoColor=white)](https://www.virustotal.com/gui/file/4edb05eac0643ec8322739ee075aa698738f2e57683c8f4c03a19ea893c6218d)
 
 ![Run the installer, and the Time Capsule shows up in This PC as a normal drive](docs/hero-en.png)
 
@@ -110,6 +111,11 @@ The drive appears at once.
 **Windows SmartScreen will warn about the file** because it is not code-signed: choose "More info" → "Run
 anyway". The SHA-256 of each release is on the
 [Releases](https://github.com/Steklorez/time-capsule-windows/releases) page.
+
+**Antivirus scan.** [VirusTotal report for version 1.3.0](https://www.virustotal.com/gui/file/4edb05eac0643ec8322739ee075aa698738f2e57683c8f4c03a19ea893c6218d): 68 of 69 engines find nothing, including
+Microsoft, Kaspersky, ESET, BitDefender and Dr.Web. One engine, Bkav Pro, flags the file with a generic label
+(`W32.Malware.56658B19`), which is a common false alarm for new unsigned installers. The source is open, so you
+can also build the file yourself.
 
 **To change settings or uninstall**, run the setup program again, or use Windows "Apps".
 
