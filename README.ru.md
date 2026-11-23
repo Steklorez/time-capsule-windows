@@ -271,6 +271,7 @@ TimeCapsuleDrive probe | ls | selftest | bench | benchw | mount     инстру
 - Что-то не работает: [создайте issue](https://github.com/Steklorez/time-capsule-windows/issues/new/choose)
   и приложите файл `C:\ProgramData\TimeCapsuleDrive\timecapsule.log`.
 - Вопросы и идеи: [Discussions](https://github.com/Steklorez/time-capsule-windows/discussions).
+- Обсуждение на русском: [тема на форуме 4PDA](https://4pda.to/forum/index.php?showtopic=450483&view=findpost&p=146125485).
 
 Если программа пригодилась, поставьте ⭐: так её проще найти другим владельцам Time Capsule.
 

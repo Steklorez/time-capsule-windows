@@ -272,6 +272,7 @@ Time Capsule quirks the code works around:
 - Something does not work: [open an issue](https://github.com/Steklorez/time-capsule-windows/issues/new/choose)
   and attach `C:\ProgramData\TimeCapsuleDrive\timecapsule.log`.
 - Questions and ideas: [Discussions](https://github.com/Steklorez/time-capsule-windows/discussions).
+- In Russian: [the thread on the 4PDA forum](https://4pda.to/forum/index.php?showtopic=450483&view=findpost&p=146125485).
 
 If the program is useful to you, a ⭐ helps other Time Capsule owners find it.
 
