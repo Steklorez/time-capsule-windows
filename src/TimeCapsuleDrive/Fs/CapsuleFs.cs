@@ -255,9 +255,12 @@ public sealed class CapsuleFs : FileSystemBase
         lock (_metaLock) { _meta.Clear(); _lists.Clear(); }
     }
 
+    /// <summary>Drops what is remembered about a file, so that the next question about it goes to the server.</summary>
     void Forget(string path)
     {
-        lock (_metaLock) _meta.Remove(Key(path));
+        string key = Key(path);
+        // The parent's listing goes too: a listing without this entry would say the file does not exist.
+        lock (_metaLock) { _meta.Remove(key); _lists.Remove(ParentOf(key)); }
     }
 
     void PutEntry(string path, Entry e)

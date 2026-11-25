@@ -27,7 +27,7 @@ static class Installer
     public const string StopEventName = @"Global\TimeCapsuleDrive.Stop";
     public const string FileSystemName = "AFP";
     const string UninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TimeCapsuleDrive";
-    public const string Version = "1.3.1";
+    public const string Version = "1.3.2";
 
     // The official WinFsp release this program was built and tested with.
     const string WinFspUrl = "https://github.com/winfsp/winfsp/releases/download/v2.2/winfsp-2.2.26323.msi";
