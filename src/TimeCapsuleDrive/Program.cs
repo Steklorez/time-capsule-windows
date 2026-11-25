@@ -64,7 +64,7 @@ static class Program
 
         // The program is a windowed application (so that the setup window opens without a console);
         // for command-line use it borrows the console it was started from.
-        if (cmd != "setup") AttachConsole(-1);
+        if (cmd != "setup" && cmd != "update-check") AttachConsole(-1);
         try { Console.OutputEncoding = System.Text.Encoding.UTF8; } catch (Exception) { }
 
         try
@@ -76,6 +76,11 @@ static class Program
                 case "install": return InstallSilently(configPath, share, logPath);
                 case "uninstall": return Uninstall(silent, logPath);
                 case "stop": return Stop();
+                case "update-check":
+                {
+                    int at = rest.IndexOf("--as-version");
+                    return NewVersion.Check(rest.Contains("--force"), at >= 0 && at + 1 < rest.Count ? rest[at + 1] : null);
+                }
                 case "winfsp-check":
                     Console.WriteLine(Installer.BundledWinFsp() == null ? "WinFsp installer: not included in this build (will be downloaded)"
                         : Installer.BundledWinFspIsValid() ? "WinFsp installer: included and verified" : "WinFsp installer: included but NOT the expected file");

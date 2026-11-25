@@ -24,6 +24,7 @@ sealed class SetupForm : Form
     readonly System.Windows.Forms.Timer _stateTimer = new() { Interval = 3000 };
     readonly Button _connect = new(), _install = new(), _remove = new(), _close = new();
     readonly TextBox _log = new() { Multiline = true, ReadOnly = true, ScrollBars = ScrollBars.Vertical };
+    readonly LinkLabel _update = new() { Visible = false };
     readonly Config? _existing;
 
     [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -84,6 +85,10 @@ sealed class SetupForm : Form
         Add(_shareHint);
         y += 58;
 
+        // Shown only when a newer version has been published; the log below then gives up a line for it.
+        _update.SetBounds(left, y, 528, 20);
+        _update.LinkClicked += (_, _) => NewVersion.OpenReleasePage();
+        Add(_update);
         _log.SetBounds(left, y, 528, formH - y - 56);
         Add(_log);
 
@@ -120,6 +125,7 @@ sealed class SetupForm : Form
         _remove.Click += async (_, _) => await RemoveAsync();
         _close.Click += (_, _) => Close();
         Shown += async (_, _) => await DiscoverAsync();
+        Shown += async (_, _) => await CheckUpdateAsync();
         _stateTimer.Tick += (_, _) => ShowState();
         _stateTimer.Start();
         ShowState();
@@ -163,6 +169,16 @@ sealed class SetupForm : Form
                 _ => string.Format(T.StateError, s.Detail),
             };
         _state.ForeColor = up ? Color.FromArgb(0, 110, 40) : s.State == Status.Connecting ? SystemColors.ControlText : Color.FromArgb(180, 30, 30);
+    }
+
+    async Task CheckUpdateAsync()
+    {
+        var latest = await Task.Run(NewVersion.Latest);
+        if (IsDisposed || latest == null || !NewVersion.IsNewer(latest, Installer.Version)) return;
+        _update.Text = string.Format(T.UpdateLinkFmt, latest, Installer.Version);
+        int shift = _update.Height + _update.Height / 5;
+        _log.SetBounds(_log.Left, _log.Top + shift, _log.Width, _log.Height - shift);
+        _update.Visible = true;
     }
 
     void UpdateShareHint()

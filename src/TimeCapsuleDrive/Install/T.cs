@@ -85,5 +85,16 @@ static class T
     public static string ShareFailed => P("The drive is connected, but sharing it did not work. Details are in {0}",
         "Диск подключён, но открыть общий доступ не удалось. Подробности в {0}");
     public static string Done => P("Done.", "Готово.");
+    public static string UpdateHeadFmt => P("Time Capsule Drive {0} is available", "Вышла версия Time Capsule Drive {0}");
+    public static string UpdateBodyFmt => P(
+        "You have version {0}. The download page says what has changed. To update, run the new setup file over the installed program; your settings are kept.",
+        "У вас установлена версия {0}. На странице загрузки написано, что изменилось. Чтобы обновиться, запустите новый установщик поверх установленной программы — настройки сохранятся.");
+    public static string UpdateDownload => P("Download page", "Скачать");
+    public static string UpdateLater => P("Remind me later", "Напомнить позже");
+    public static string UpdateSkip => P("Skip this version", "Пропустить версию");
+    public static string UpdateNever => P("Do not tell me about new versions again", "Больше не сообщать о новых версиях");
+    public static string UpdateLinkFmt => P("Version {0} is available (you have {1}) — open the download page",
+        "Доступна версия {0} (у вас {1}) — открыть страницу загрузки");
+    public static string StepUpdateTask => P("Setting up the new-version notice…", "Настройка уведомления о новых версиях…");
     public static string Removed => P("Time Capsule Drive has been removed.", "Time Capsule Drive удалена.");
 }

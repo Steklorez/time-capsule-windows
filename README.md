@@ -163,6 +163,10 @@ it takes a minute and helps everyone with the same device.
 - Do not write inside Time Machine backups.
 - Mac-only metadata (Finder labels, resource forks of old files) is not visible on Windows.
 - The disk of the Time Capsule goes to sleep; the first access after a pause takes about 8 seconds.
+- **New versions.** Once a day the program asks github.com whether a newer version has been published and, if
+  so, shows a notice with a link to the download page. Nothing is downloaded or installed by itself and nothing
+  about your computer or files is sent. To switch it off, tick "Do not tell me about new versions again" in the
+  notice, or disable the task "TimeCapsuleDrive update check" in Windows Task Scheduler.
 
 <details>
 <summary><b>Data safety: what was tested</b></summary>

@@ -17,6 +17,7 @@ namespace TimeCapsuleDrive.Install;
 ///   - the program itself in %ProgramFiles%\TimeCapsuleDrive;
 ///   - settings in %ProgramData%\TimeCapsuleDrive (password encrypted, administrators only);
 ///   - a scheduled task that mounts the drive for the whole computer when Windows starts;
+///   - a scheduled task that tells the signed-in user when a newer version is published;
 ///   - optionally a network share of that drive plus a firewall rule for it;
 ///   - an entry in "Apps and features" for uninstalling.
 /// </summary>
@@ -27,7 +28,7 @@ static class Installer
     public const string StopEventName = @"Global\TimeCapsuleDrive.Stop";
     public const string FileSystemName = "AFP";
     const string UninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TimeCapsuleDrive";
-    public const string Version = "1.3.2";
+    public const string Version = "1.3.3";
 
     // The official WinFsp release this program was built and tested with.
     const string WinFspUrl = "https://github.com/winfsp/winfsp/releases/download/v2.2/winfsp-2.2.26323.msi";
@@ -156,6 +157,9 @@ static class Installer
 
             say(T.StepTask);
             RegisterTask();
+            // The notice about new versions is a convenience: failing to set it up must not fail the installation.
+            try { say(T.StepUpdateTask); RegisterTask(NewVersion.TaskName, NewVersion.TaskXml(InstalledExe, InstallDir)); }
+            catch (Exception e) { say(e.Message); }
             Run("schtasks.exe", $"/Run /TN \"{TaskName}\"");
 
             say(T.StepMount);
@@ -345,11 +349,16 @@ static class Installer
               </Actions>
             </Task>
             """;
+        RegisterTask(TaskName, xml);
+    }
+
+    static void RegisterTask(string name, string xml)
+    {
         string file = Path.Combine(InstallDir, "task-" + Guid.NewGuid().ToString("N") + ".xml");
         File.WriteAllText(file, xml, Encoding.Unicode);
         try
         {
-            var (code, output) = Run("schtasks.exe", $"/Create /TN \"{TaskName}\" /XML \"{file}\" /F");
+            var (code, output) = Run("schtasks.exe", $"/Create /TN \"{name}\" /XML \"{file}\" /F");
             if (code != 0) throw new InvalidOperationException("schtasks: " + output.Trim());
         }
         finally { try { File.Delete(file); } catch (Exception) { } }
@@ -412,6 +421,8 @@ static class Installer
         StopService();
         if (drive.Length > 0) ShellNotify.DriveRemoved(drive);
         Run("schtasks.exe", $"/Delete /TN \"{TaskName}\" /F");
+        Run("schtasks.exe", $"/End /TN \"{NewVersion.TaskName}\"");
+        Run("schtasks.exe", $"/Delete /TN \"{NewVersion.TaskName}\" /F");
         RemoveShare(share);
         Run("netsh.exe", $"advfirewall firewall delete rule name=\"{FirewallRule}\"");
         try { RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).DeleteSubKeyTree(UninstallKey, false); } catch (Exception) { }
