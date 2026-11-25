@@ -81,6 +81,9 @@ public sealed class CapsuleFs : FileSystemBase
         public readonly Dictionary<long, Block> Blocks = new();
         public long LastBlock = -2;
         public int Sequential;
+        /// <summary>The span of the last read that bypassed the block cache, and how many such reads adjoined in a row.</summary>
+        public long DirectStart = -1, DirectEnd = -1;
+        public int DirectRun;
         public readonly Queue<WriteChunk> Writes = new();
         /// <summary>Consecutive small writes gathered into one piece that has not been sent yet.</summary>
         public byte[]? Gather;
@@ -680,6 +683,29 @@ public sealed class CapsuleFs : FileSystemBase
 
         long first = off / BlockSize, last = (off + len - 1) / BlockSize, lastInFile = (size - 1) / BlockSize;
         bool sequential = first == st.LastBlock || first == st.LastBlock + 1;
+
+        // A read that jumps to another place in the file (a database, an archive index, a disk image) fetches
+        // just the bytes asked for: pulling a whole block per 4 KB request made random reads several times
+        // slower than they need to be. Reads that then carry on from there go back to blocks and read-ahead.
+        // (A step back into the block just before the last one is a file being read backwards: blocks suit that.)
+        if (!sequential && first != st.LastBlock - 1 && len <= BlockSize && !(st.LastBlock == -2 && off == 0)
+            && !Cached(st, first, last))
+        {
+            st.DirectRun = off == st.DirectEnd || off + len == st.DirectStart ? st.DirectRun + 1 : 0;
+            if (st.DirectRun < 2)
+            {
+                var buf = ArrayPool<byte>.Shared.Rent(len);
+                // The buffer goes back to the pool only after the reply: a failed request may still write into it.
+                int got = _afp.EndRead(_afp.BeginRead(fork, off, len, buf));
+                got = Math.Min(got, len);
+                if (got > 0) Marshal.Copy(buf, 0, buffer, got);
+                ArrayPool<byte>.Shared.Return(buf);
+                st.DirectStart = off;
+                st.DirectEnd = off + got;
+                return got;
+            }
+        }
+        st.DirectStart = st.DirectEnd = -1;
         st.Sequential = sequential ? st.Sequential + 1 : 0;
         long upto = Math.Min(lastInFile, last + (st.Sequential >= 2 ? ReadAheadBlocks : 0));
 
@@ -716,6 +742,13 @@ public sealed class CapsuleFs : FileSystemBase
         }
         st.LastBlock = last;
         return done;
+    }
+
+    static bool Cached(FileState st, long first, long last)
+    {
+        for (long b = first; b <= last; b++)
+            if (!st.Blocks.ContainsKey(b)) return false;
+        return true;
     }
 
     /// <summary>Gives a block's buffer back. A buffer is only reused once its request can no longer write into it.</summary>
