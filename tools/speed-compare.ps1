@@ -8,7 +8,7 @@
 param(
     [string]$Drive = '',                 # e.g. T:   (default: the installed Time Capsule Drive)
     [string]$Smb = '',                   # e.g. \\192.168.1.5\Time Capsule   (default: worked out from the drive)
-    [int]$Runs = 3, [int]$SizeMB = 400, [int]$SmallFiles = 200
+    [int]$Runs = 3, [int]$SizeMB = 400, [int]$SmallFiles = 200, [int]$RandomSeconds = 8
 )
 $ErrorActionPreference = 'Stop'
 
@@ -61,6 +61,21 @@ function Measure-Path($path) {
     $fs.Close(); $sw.Stop(); $r.read = $got / 1MB / $sw.Elapsed.TotalSeconds
     Write-Host (" {0:N1} MB/s" -f $r.read)
 
+    # Small pieces from scattered places of the large file: what a database, a disk image or an archive does.
+    Write-Host "    random 4 KB reads for $RandomSeconds s..." -NoNewline
+    try { $fs = New-Object IO.FileStream($big, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read, 4096, $NoBuffering) } catch { $fs = [IO.File]::OpenRead($big) }
+    $piece = New-Object byte[] 4096; $rnd = New-Object Random 3; $pieces = [int]($SizeMB * 256); $count = 0
+    $sw = [Diagnostics.Stopwatch]::StartNew()
+    try {
+        while ($sw.Elapsed.TotalSeconds -lt $RandomSeconds) {
+            [void]$fs.Seek([long]$rnd.Next(0, $pieces) * 4096, 'Begin'); [void]$fs.Read($piece, 0, 4096); $count++
+        }
+        $sw.Stop(); $r.random = $count / $sw.Elapsed.TotalSeconds
+        Write-Host (" {0:N0}/s" -f $r.random)
+    }
+    catch { $r.random = 0; Write-Host " failed: $($_.Exception.Message)" }
+    $fs.Close()
+
     Write-Host "    $SmallFiles small files: create..." -NoNewline
     $sw = [Diagnostics.Stopwatch]::StartNew(); for ($i = 0; $i -lt $SmallFiles; $i++) { [IO.File]::WriteAllBytes((Join-Path $dir "s$i.bin"), $small) }; $sw.Stop(); $r.create = $SmallFiles / $sw.Elapsed.TotalSeconds
     Write-Host (" {0:N0}/s, read..." -f $r.create) -NoNewline
@@ -85,7 +100,7 @@ for ($run = 1; $run -le $Runs; $run++) {
 }
 
 # ---- summary
-$rows = @(@('write', 'Large file, write (MB/s)', 1), @('read', 'Large file, read (MB/s)', 1), @('create', 'Small files, create (per s)', 0),
+$rows = @(@('write', 'Large file, write (MB/s)', 1), @('read', 'Large file, read (MB/s)', 1), @('random', 'Random 4 KB reads (per s)', 0), @('create', 'Small files, create (per s)', 0),
     @('readSmall', 'Small files, read (per s)', 0), @('delete', 'Small files, delete (per s)', 0))
 function Avg($k, $key) { if ($all[$k].Count -eq 0) { return $null }; ($all[$k] | ForEach-Object { $_[$key] } | Measure-Object -Average).Average }
 $lines = @('', '==================== RESULT ====================',
@@ -96,7 +111,7 @@ foreach ($row in $rows) {
     $lines += ("{0,-30} {1,10} {2,10}   {3}" -f $row[1], $(if ($s) { $s.ToString($f) } else { 'n/a' }), $(if ($a) { $a.ToString($f) } else { 'n/a' }), $ratio)
 }
 foreach ($k in 'SMB', 'AFP') {
-    $lines += ("{0} runs: {1}" -f $k, (($all[$k] | ForEach-Object { "{0:N1}/{1:N1}/{2:N0}/{3:N0}/{4:N0}" -f $_.write, $_.read, $_.create, $_.readSmall, $_.delete }) -join '  '))
+    $lines += ("{0} runs: {1}" -f $k, (($all[$k] | ForEach-Object { "{0:N1}/{1:N1}/{5:N0}/{2:N0}/{3:N0}/{4:N0}" -f $_.write, $_.read, $_.create, $_.readSmall, $_.delete, $_.random }) -join '  '))
     if ($failed[$k]) { $lines += "$k FAILED: $($failed[$k])" }
 }
 $lines += ("averages of {0} run(s); {1} MB file, {2} small files; {3}; AFP={4}; SMB={5}" -f $Runs, $SizeMB, $SmallFiles, (Get-Date -Format 'yyyy-MM-dd HH:mm'), $targets['AFP'], $targets['SMB'])
