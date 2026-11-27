@@ -228,12 +228,12 @@ public sealed class AfpClient : IDisposable
         if (r.Error != AfpError.AuthContinue) throw new AfpException(r.Error, "login (DHX2 step 1)");
         var d = r.Span;
         ushort id = BinaryPrimitives.ReadUInt16BigEndian(d);
-        var g = new BigInteger(d.Slice(2, 4), true, true);
+        var g = Big.Read(d.Slice(2, 4));
         int len = BinaryPrimitives.ReadUInt16BigEndian(d.Slice(6));
-        var p = new BigInteger(d.Slice(8, len), true, true);
-        var mb = new BigInteger(d.Slice(8 + len, len), true, true);
+        var p = Big.Read(d.Slice(8, len));
+        var mb = Big.Read(d.Slice(8 + len, len));
 
-        var ra = new BigInteger(RandomNumberGenerator.GetBytes(Math.Max(16, len - 1)), true, true);
+        var ra = Big.Read(RandomNumberGenerator.GetBytes(Math.Max(16, len - 1)));
         var ma = BigInteger.ModPow(g, ra, p);
         byte[] key = MD5.HashData(Pad(BigInteger.ModPow(mb, ra, p), len));
         byte[] c2sIv = Encoding.ASCII.GetBytes("LWallace"), s2cIv = Encoding.ASCII.GetBytes("CJalbert");
@@ -342,7 +342,7 @@ public sealed class AfpClient : IDisposable
 
     static byte[] Pad(BigInteger v, int len)
     {
-        var raw = v.ToByteArray(true, true);
+        var raw = Big.Bytes(v);
         if (raw.Length >= len) return raw.AsSpan(raw.Length - len).ToArray();
         var res = new byte[len];
         raw.CopyTo(res, len - raw.Length);

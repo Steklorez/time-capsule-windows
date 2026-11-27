@@ -56,8 +56,12 @@ static class Program
         string cmd = rest.Count > 0 ? rest[0].ToLowerInvariant() : "setup";
 
         // The WinFsp .NET library is not part of the program file itself; see WinFspLibrary.
+#if NETFRAMEWORK
+        Libraries.Hook();
+#else
         System.Runtime.Loader.AssemblyLoadContext.Default.Resolving += (context, name) =>
             name.Name == "winfsp-msil" ? context.LoadFromAssemblyPath(WinFspLibrary.Locate()) : null;
+#endif
 
         // Whatever goes wrong unexpectedly must end up in the log: the background drive has no screen.
         AppDomain.CurrentDomain.UnhandledException += (_, e) => Log("fatal: " + e.ExceptionObject);
@@ -145,7 +149,7 @@ static class Program
     static int Elevate(string[] args)
     {
         var psi = new ProcessStartInfo(Environment.ProcessPath!) { UseShellExecute = true, Verb = "runas" };
-        foreach (var a in args) psi.ArgumentList.Add(a);
+        psi.Arguments = CommandLine.Join(args);
         try
         {
             using var p = Process.Start(psi)!;

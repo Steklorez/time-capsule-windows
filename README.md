@@ -30,6 +30,10 @@
 
 Free and open source. Windows 10/11 x64. One file, nothing else to install.
 
+Windows 7 SP1 and 8.1 (x64): new in version 1.4.0. They need
+[.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48) installed first. This is
+not yet confirmed on real machines, so reports are welcome.
+
 ## The problem it solves
 
 Windows can only open a Time Capsule through SMB1, an old protocol that Windows 11 ships switched off. That is
@@ -223,7 +227,9 @@ Implemented from the protocol documentation but not exercised on a live device:
 <details>
 <summary><b>What the installer puts on the computer</b></summary>
 
-Nothing is downloaded: .NET and the official WinFsp installer are inside the file.
+Nothing is downloaded: the official WinFsp installer is inside the file, and the program runs on .NET Framework
+4.8, which is part of Windows 10 and 11 (on Windows 7 and 8.1 install it from Microsoft first; the program says
+so if it is missing).
 
 | What | Where |
 |---|---|
@@ -255,7 +261,7 @@ During development the program reads `credentials.txt` from the project folder (
 <details>
 <summary><b>Building and how it works</b></summary>
 
-Needs the .NET 10 SDK. Run `build.cmd`; the result is `dist\TimeCapsuleDriveSetup.exe`, one file that is both
+Needs the .NET 10 SDK to build (the program itself targets .NET Framework 4.8). Run `build.cmd`; the result is `dist\TimeCapsuleDriveSetup.exe`, one file that is both
 the installer and the program.
 
 - `src/TimeCapsuleDrive/Afp`: an AFP 3.3 client over TCP written for this project: DHX2 login, files, write
